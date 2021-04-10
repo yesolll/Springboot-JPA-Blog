@@ -51,4 +51,6 @@ public class User {
 	
 	@CreationTimestamp
 	private Timestamp createDate;
+	
+	// select_test 테스트
 }
