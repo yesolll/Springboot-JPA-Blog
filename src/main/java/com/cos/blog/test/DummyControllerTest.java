@@ -1,8 +1,12 @@
 package com.cos.blog.test;
 
-import java.util.function.Supplier;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -58,4 +62,16 @@ public class DummyControllerTest {
 		return user;
 	}
 
+	@GetMapping("/dummy/users")
+	public List<User> list(){
+		return userRepository.findAll();
+	}
+	
+	// 한 페이지 당 두 건의 데이터를 받아볼 예정
+	@GetMapping("/dummy/user")
+	public List<User> pageList(@PageableDefault(size=1, sort="id", direction=Sort.Direction.DESC) Pageable pageable){
+		Page<User> pagingUsers = userRepository.findAll(pageable);
+		List<User>users = pagingUsers.getContent();
+		return users;
+	}
 }
