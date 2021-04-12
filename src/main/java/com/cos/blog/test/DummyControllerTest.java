@@ -10,6 +10,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cos.blog.model.RoleType;
@@ -73,5 +75,21 @@ public class DummyControllerTest {
 		Page<User> pagingUsers = userRepository.findAll(pageable);
 		List<User>users = pagingUsers.getContent();
 		return users;
+	}
+	
+	// email, password 수정해보기
+	@PutMapping("/dummy/user/{id}") // 주소 같아도 annotation 달라서 괜찮음
+	public User updateUser(@PathVariable int id, @RequestBody User requestUser) {
+		System.out.println("id: " + id);
+		System.out.println("password: " + requestUser.getPassword());
+		System.out.println("email: " + requestUser.getEmail());
+		
+		User user = userRepository.findById(id).orElseThrow(()->{
+			return new IllegalArgumentException("수정에 실패하였습니다.");
+		});
+		user.setPassword(requestUser.getPassword());
+		user.setEmail(requestUser.getEmail());
+		userRepository.save(user);
+		return null;
 	}
 }
