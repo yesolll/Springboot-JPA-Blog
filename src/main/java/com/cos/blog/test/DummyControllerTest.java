@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -78,6 +80,7 @@ public class DummyControllerTest {
 	}
 	
 	// email, password 수정해보기
+	@Transactional
 	@PutMapping("/dummy/user/{id}") // 주소 같아도 annotation 달라서 괜찮음
 	public User updateUser(@PathVariable int id, @RequestBody User requestUser) {
 		System.out.println("id: " + id);
@@ -89,7 +92,21 @@ public class DummyControllerTest {
 		});
 		user.setPassword(requestUser.getPassword());
 		user.setEmail(requestUser.getEmail());
-		userRepository.save(user);
-		return null;
+		
+		// save 함수 사용 시 해당 id에 대한 데이터 있으면 insert 아닌 update 됨
+		// userRepository.save(user);
+		// ㄴ @Transactional 걸면이렇게 주석처리 해도 update가 된다 -> 더티 체킹
+		return user;
 	}
+	
+	@DeleteMapping("/dummy/user/{id}")
+	public String delete(@PathVariable int id) {
+		try {
+		userRepository.deleteById(id);
+		}catch(Exception e) {
+		return "삭제 실패."+ id + "은(는) 없는 아이디 입니다.";
+		}
+		return "삭제되었습니다. id:" + id;
+	}
+	
 }
