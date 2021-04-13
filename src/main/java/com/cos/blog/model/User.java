@@ -35,7 +35,7 @@ public class User {
 	// IDENTITY -> SEQUENCE, TABLE(테이블 번호), AUTO 등
 	private int  id; // 오라클로 치면 시퀀스, mysql은 auto_increment
 	
-	@Column(nullable=false, length=30)
+	@Column(nullable=false, length=30, unique=true)
 	private String username; // 아이디
 	
 	@Column(nullable=false, length=100) // hash로 변경해서 암호화 할 것
