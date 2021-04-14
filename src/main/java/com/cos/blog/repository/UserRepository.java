@@ -1,6 +1,7 @@
 package com.cos.blog.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import com.cos.blog.model.User;
 
@@ -8,5 +9,14 @@ import com.cos.blog.model.User;
 // Bean으로 등록이 되나요?(IoC, DI) -> 자동으로 등록 되어 @Repository 생략 가능
 public interface UserRepository extends JpaRepository<User,Integer>{
 	// 해당 jpa rep는 user테이블 관리, 그 pk는 integer
+	
+	// 로그인을 위한 함수 작성
+	// JPA 네이밍 전략 -> 자동 생성 where 절~
+	User findByUsernameAndPassword(String username, String password);
+		// SELECT * FROM user WHERE username = ? AND password = ? -> 파라미터 순서
+	
+//	이렇게 쓸 수도 있음
+//	@Query(value="SELECT * FROM uwer WHERE username=?1 AND password=?2", nativeQuery=true)
+//	User login(String username, String password);
 
 }
