@@ -3,6 +3,9 @@ let index={
 		$("#btn-save").on("click", ()=>{ // this를 바인딩하기 위해 화살표함수 사용
 			this.save();
 		});
+		$("#btn-login").on("click", ()=>{
+			this.login ();
+		});
 	},
 	
 	save: function(){
@@ -28,7 +31,7 @@ let index={
 		}).done(function(response){
 			console.log(response);
 			alert("회원가입이 완료되었습니다.");
-			 location.href="/blog";
+//			 location.href="/blog";
 		}).fail(function(error){
 			alert(JSON.stringify(error));
 		}); // ajax 이용 3개의 파라미터 json으로 변경 후 
@@ -38,7 +41,7 @@ let index={
 	login: function(){
 		let data = {
 			username: $("#username").val(),
-			password: $("#password").val(),
+			password: $("#password").val()
 		}
 		$.ajax({
 			type: "POST",
@@ -49,7 +52,7 @@ let index={
 		}).done(function(response){
 			console.log(response);
 			alert("로그인이 완료되었습니다.");
-			 location.href="/blog";
+//			 location.href="/blog";
 		}).fail(function(error){
 			alert(JSON.stringify(error));
 		}); 
