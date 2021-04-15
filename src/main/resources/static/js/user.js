@@ -23,7 +23,7 @@ let index={
 		$.ajax({
 			// object 들어와야 하니까 {} 사용
 			type: "POST",
-			url: "/blog/api/user",
+			url: "/api/user",
 			data: JSON.stringify(data), // json 문자열로
 			contentType: "application/json; charset=utf-8", // body data type
 			dataType: "json" // response type
@@ -31,7 +31,7 @@ let index={
 		}).done(function(response){
 			console.log(response);
 			alert("회원가입이 완료되었습니다.");
-//			 location.href="/blog";
+			 location.href="/";
 		}).fail(function(error){
 			alert(JSON.stringify(error));
 		}); // ajax 이용 3개의 파라미터 json으로 변경 후 
@@ -45,14 +45,14 @@ let index={
 		}
 		$.ajax({
 			type: "POST",
-			url: "/blog/api/user/login",
+			url: "/api/user/login",
 			data: JSON.stringify(data),
 			contentType: "application/json; charset=utf-8",
 			dataType: "json"
 		}).done(function(response){
 			console.log(response);
 			alert("로그인이 완료되었습니다.");
-//			 location.href="/blog";
+			 location.href="/";
 		}).fail(function(error){
 			alert(JSON.stringify(error));
 		}); 
