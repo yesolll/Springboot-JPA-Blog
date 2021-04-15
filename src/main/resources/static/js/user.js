@@ -13,13 +13,13 @@ let index={
 			email: $("#email").val()
 			// joinForm 변수에 바인딩
 		}
-		// console.log(data);
+		 console.log(data);
 		
 		// .을 통한 연결: 회원가입 수행 요청-> 정상이면 done-> 실패하면 fail
 		$.ajax({
 			// object 들어와야 하니까 {} 사용
 			type: "POST",
-			url: "auth/joinProc",
+			url: "/auth/joinProc",
 			data: JSON.stringify(data), // json 문자열로
 			contentType: "application/json; charset=utf-8", // body data type
 			dataType: "json" // response type
