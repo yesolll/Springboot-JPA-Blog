@@ -20,22 +20,11 @@ public class UserApiController {
 //	@Autowired
 //	private HttpSession session;
 	
-	@PostMapping("/api/user")
+	@PostMapping("/auth/joinProc")
 	public ResponseDto<Integer> save(@RequestBody User user) {	
 		// System.out.println("UserApiController 호출");
 		user.setRole(RoleType.USER);
 		userService.회원가입(user);
 		return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
 	}
-	
-//	@PostMapping("api/user/login")
-//	public ResponseDto<Integer> login(@RequestBody User user){
-//		System.out.println("UserApiController : 로그인 호출됨");
-//		User principal = userService.로그인(user); // principal = 접근 주체
-//		if(principal != null) {
-//			session.setAttribute("principal", principal);
-//		}
-//		return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
-//	// 뭐지..................
-//	}
 }

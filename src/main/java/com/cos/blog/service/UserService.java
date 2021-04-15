@@ -17,9 +17,4 @@ public class UserService {
 	public void 회원가입(User user) {
 		userRepository.save(user);
 	}
-	
-	@Transactional(readOnly = true) // select시 트랜잭션 시작, 서비스 종료시 트랜잭션 종료(정합성 유지): 여러 번 해도 같은 데이터 찾아짐
-	public User 로그인(User user) {
-		return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
-	}
 }
